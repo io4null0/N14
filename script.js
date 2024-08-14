@@ -1,17 +1,16 @@
 const chatMessages = document.getElementById('chat-messages');
 const userInput = document.getElementById('user-input');
 
-// シナリオデータ（例）
+// シナリオデータ (JSON形式)
 const scenarios = [
   {
     user: 'こんにちは',
     bot: 'こんにちは！ご用件は？',
-    icon: 'bot-icon.png'
+    icon: 'bot.png'
   },
   // ... その他のシナリオ
 ];
 
-// メッセージを追加する関数
 function addMessage(message, isUser) {
   const li = document.createElement('li');
   li.className = isUser ? 'user-message' : 'bot-message';
@@ -22,7 +21,6 @@ function addMessage(message, isUser) {
   chatMessages.appendChild(li);
 }
 
-// ユーザー入力時の処理
 userInput.addEventListener('keyup', (event) => {
   if (event.key === 'Enter') {
     const userMessage = userInput.value;
@@ -30,9 +28,14 @@ userInput.addEventListener('keyup', (event) => {
     userInput.value = '';
 
     // シナリオから適切な応答を検索し、addMessageで追加
-    // ...
+    const matchedScenario = scenarios.find(scenario => scenario.user === userMessage);
+    if (matchedScenario) {
+      addMessage(matchedScenario, false);
+    } else {
+      addMessage({ text: 'すみません、よくわかりません。', icon: 'bot.png' }, false);
+    }
   }
 });
 
 // 初期表示
-addMessage({ text: 'チャットを始めましょう！', icon: 'bot-icon.png' }, false);
+addMessage({ text: 'チャットを始めましょう！', icon: 'bot.png' }, false);
