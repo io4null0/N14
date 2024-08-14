@@ -18,3 +18,5 @@ document.querySelector('button').addEventListener('click', () => {
   const botResponse = 'こんにちは！何かお手伝いできることはありますか？';
   addMessage(botResponse, true);
 });
+const img = document.createElement("img");
+    img.src = sender === "bot" ? "bot-icon.png" : "user-icon.png";
