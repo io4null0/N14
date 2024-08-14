@@ -6,7 +6,7 @@ const scenarios = [
   {
     user: 'こんにちは',
     bot: 'こんにちは！ご用件は？',
-    icon: 'bot.png'
+    icon: 'bot-icon.png'
   },
   // ... その他のシナリオ
 ];
@@ -32,7 +32,7 @@ userInput.addEventListener('keyup', (event) => {
     if (matchedScenario) {
       addMessage(matchedScenario, false);
     } else {
-      addMessage({ text: 'すみません、よくわかりません。', icon: 'bot.png' }, false);
+      addMessage({ text: 'すみません、よくわかりません。', icon: 'bot-icon.png' }, false);
     }
   }
 });
