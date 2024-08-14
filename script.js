@@ -1,22 +1,38 @@
-const chatContainer = document.getElementById('chat-container');
+const chatMessages = document.getElementById('chat-messages');
 const userInput = document.getElementById('user-input');
 
-function addMessage(message, isBot) {
-  const messageDiv = document.createElement('div');
-  messageDiv.classList.add('message', isBot ? 'bot' : 'user');
-  messageDiv.textContent = message;
-  chatContainer.appendChild(messageDiv);
+// シナリオデータ（例）
+const scenarios = [
+  {
+    user: 'こんにちは',
+    bot: 'こんにちは！ご用件は？',
+    icon: 'bot.png'
+  },
+  // ... その他のシナリオ
+];
+
+// メッセージを追加する関数
+function addMessage(message, isUser) {
+  const li = document.createElement('li');
+  li.className = isUser ? 'user-message' : 'bot-message';
+  li.innerHTML = `
+    <img src="${message.icon}" alt="アイコン">
+    <p>${message.text}</p>
+  `;
+  chatMessages.appendChild(li);
 }
 
-// 送信ボタンをクリックした時の処理
-document.querySelector('button').addEventListener('click', () => {
-  const userMessage = userInput.value;
-  addMessage(userMessage, false);
-  userInput.value = '';
+// ユーザー入力時の処理
+userInput.addEventListener('keyup', (event) => {
+  if (event.key === 'Enter') {
+    const userMessage = userInput.value;
+    addMessage({ text: userMessage, icon: 'user.png' }, true);
+    userInput.value = '';
 
-  // ボットの返信
-  const botResponse = 'こんにちは！何かお手伝いできることはありますか？';
-  addMessage(botResponse, true);
+    // シナリオから適切な応答を検索し、addMessageで追加
+    // ...
+  }
 });
-const img = document.createElement("img");
-    img.src = sender === "bot" ? "bot-icon.png" : "user-icon.png";
+
+// 初期表示
+addMessage({ text: 'チャットを始めましょう！', icon: 'bot.png' }, false);
