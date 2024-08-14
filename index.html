@@ -1,19 +1,14 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>シナリオ型チャットボット</title>
-    <link rel="stylesheet" href="styles.css">
+  <title>チャットボット</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="chat-container">
-        <div id="chat-box">
-            <!-- チャットのメッセージがここに表示されます -->
-        </div>
-        <input type="text" id="user-input" placeholder="メッセージを入力..." onkeydown="if(event.key === 'Enter'){sendMessage();}">
-        <button onclick="sendMessage()">送信</button>
+  <div id="chat-container">
     </div>
-    <script src="script.js"></script>
+  <input type="text" id="user-input" placeholder="メッセージを入力">
+  <button>送信</button>
+  <script src="script.js"></script>
 </body>
 </html>
