@@ -1,45 +1,20 @@
-const scenarios = {
-    start: "こんにちは！何をお手伝いしましょうか？",
-    help: "どんなサポートが必要ですか？",
-    end: "ありがとうございました！",
-};
+const chatContainer = document.getElementById('chat-container');
+const userInput = document.getElementById('user-input');
 
-let currentStep = "start";
-
-function sendMessage() {
-    const userInput = document.getElementById("user-input").value;
-    if (!userInput) return;
-    
-    addMessage("user", userInput);
-    document.getElementById("user-input").value = "";
-
-    if (currentStep === "start") {
-        if (userInput.includes("助けて")) {
-            currentStep = "help";
-            addMessage("bot", scenarios.help);
-        } else {
-            currentStep = "end";
-            addMessage("bot", scenarios.end);
-        }
-    }
+function addMessage(message, isBot) {
+  const messageDiv = document.createElement('div');
+  messageDiv.classList.add('message', isBot ? 'bot' : 'user');
+  messageDiv.textContent = message;
+  chatContainer.appendChild(messageDiv);
 }
 
-function addMessage(sender, text) {
-    const chatBox = document.getElementById("chat-box");
+// 送信ボタンをクリックした時の処理
+document.querySelector('button').addEventListener('click', () => {
+  const userMessage = userInput.value;
+  addMessage(userMessage, false);
+  userInput.value = '';
 
-    const messageDiv = document.createElement("div");
-    messageDiv.classList.add("message", sender);
-
-    const img = document.createElement("img");
-    img.src = sender === "bot" ? "bot-icon.png" : "user-icon.png";
-
-    const textDiv = document.createElement("div");
-    textDiv.classList.add("text");
-    textDiv.textContent = text;
-
-    messageDiv.appendChild(img);
-    messageDiv.appendChild(textDiv);
-    chatBox.appendChild(messageDiv);
-
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
+  // ボットの返信
+  const botResponse = 'こんにちは！何かお手伝いできることはありますか？';
+  addMessage(botResponse, true);
+});
