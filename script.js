@@ -1,8 +1,7 @@
 const scenarios = {
     start: "こんにちは！何をお手伝いしましょうか？",
     help: "どんなサポートが必要ですか？",
-    end: "ありがとうございました！",
-};
+    end
 
 let currentStep = "start";
 
