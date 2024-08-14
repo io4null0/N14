@@ -6,7 +6,7 @@ const scenarios = [
   {
     user: 'こんにちは',
     bot: 'こんにちは！ご用件は？',
-    icon: 'bot.png'
+    icon: 'bot-icon.png'
   },
   // ... その他のシナリオ
 ];
