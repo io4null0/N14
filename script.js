@@ -1,44 +1,46 @@
-const scenarios = {
-    start: "こんにちは！何をお手伝いしましょうか？",
-    help: "どんなサポートが必要ですか？",
-    end
-
-let currentStep = "start";
+document.getElementById('sendButton').addEventListener('click', sendMessage);
 
 function sendMessage() {
-    const userInput = document.getElementById("user-input").value;
-    if (!userInput) return;
-    
-    addMessage("user", userInput);
-    document.getElementById("user-input").value = "";
+    const inputBox = document.getElementById('userInput');
+    const userMessage = inputBox.value.trim();
 
-    if (currentStep === "start") {
-        if (userInput.includes("助けて")) {
-            currentStep = "help";
-            addMessage("bot", scenarios.help);
-        } else {
-            currentStep = "end";
-            addMessage("bot", scenarios.end);
-        }
+    if (userMessage) {
+        addMessage(userMessage, 'user');
+        inputBox.value = '';
+
+        // シナリオに基づいたボットの応答を処理
+        setTimeout(() => {
+            const botMessage = getBotResponse(userMessage);
+            addMessage(botMessage, 'bot');
+        }, 1000);
     }
 }
 
-function addMessage(sender, text) {
-    const chatBox = document.getElementById("chat-box");
+function addMessage(text, sender) {
+    const chatbox = document.getElementById('chatbox');
+    const messageContainer = document.createElement('div');
+    messageContainer.classList.add('chat-message');
 
-    const messageDiv = document.createElement("div");
-    messageDiv.classList.add("message", sender);
+    const icon = document.createElement('div');
+    icon.classList.add(sender === 'bot' ? 'bot-icon' : 'user-icon');
 
-    const img = document.createElement("img");
-    img.src = sender === "bot" ? "bot-icon.png" : "user-icon.png";
+    const message = document.createElement('div');
+    message.classList.add(sender === 'bot' ? 'bot-message' : 'user-message');
+    message.textContent = text;
 
-    const textDiv = document.createElement("div");
-    textDiv.classList.add("text");
-    textDiv.textContent = text;
+    messageContainer.appendChild(icon);
+    messageContainer.appendChild(message);
+    chatbox.appendChild(messageContainer);
+    chatbox.scrollTop = chatbox.scrollHeight;
+}
 
-    messageDiv.appendChild(img);
-    messageDiv.appendChild(textDiv);
-    chatBox.appendChild(messageDiv);
-
-    chatBox.scrollTop = chatBox.scrollHeight;
+function getBotResponse(userMessage) {
+    // 簡単なシナリオ例
+    if (userMessage.includes('こんにちは')) {
+        return 'こんにちは！今日はどうされましたか？';
+    } else if (userMessage.includes('天気')) {
+        return '今日の天気は晴れです。';
+    } else {
+        return 'すみません、よくわかりませんでした。';
+    }
 }
