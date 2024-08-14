@@ -35,4 +35,4 @@ userInput.addEventListener('keyup', (event) => {
 });
 
 // 初期表示
-addMessage({ text: 'チャットを始めましょう！', icon: 'bot.png' }, false);
+addMessage({ text: 'チャットを始めましょう！', icon: 'bot-icon.png' }, false);
